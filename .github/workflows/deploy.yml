@@ -37,7 +37,7 @@ jobs:
           echo "image=$REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
           
       - name: deploy
-        uses: taroshun32-actions/deploy@master
+        uses: taroshun32/taroshun32-actions/actions/.github/deploy@master
         with:
           ECR_IMAGE:      ${{ steps.build-image.outputs.image }}
           TASK_NAME:      app
