@@ -35,22 +35,12 @@ jobs:
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           echo "image=$REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-      - name: Download task definition
-        run: |
-          aws ecs describe-task-definition --task-definition app --query taskDefinition > task-definition.json
-
-      - name: Render Amazon ECS task definition
-        id: render-web-container
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
+          
+      - name: deploy
+        uses: taroshun32-actions/deploy@master
         with:
-          task-definition: task-definition.json
-          container-name: app
-          image: ${{ steps.build-image.outputs.image }}
-
-      - name: Deploy to Amazon ECS service
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.render-web-container.outputs.task-definition }}
-          service: app
-          cluster: app
+          ECR_IMAGE:      ${{ steps.build-image.outputs.image }}
+          TASK_NAME:      app
+          CONTAINER_NAME: app
+          CLUSTER_NAME:   app
+          SERVICE_NAME:   app
