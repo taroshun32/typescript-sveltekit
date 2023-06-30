@@ -36,6 +36,10 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
+      - name: Download task definition
+        run: |
+          aws ecs describe-task-definition --task-definition app --query taskDefinition > task-definition.json
+
       - name: Render Amazon ECS task definition
         id: render-web-container
         uses: aws-actions/amazon-ecs-render-task-definition@v1
