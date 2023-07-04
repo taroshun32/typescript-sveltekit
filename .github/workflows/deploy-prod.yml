@@ -1,4 +1,4 @@
-name: "Deploy-stg"
+name: "Deploy-prod"
 
 on:
   workflow_dispatch:
