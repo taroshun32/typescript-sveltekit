@@ -1,2 +1,2 @@
-<h1>ECS デプロイフロー刷新</h1>
-<p>1.0.4</p>
+<h1>typescript-sveltekit</h1>
+<p>1.0.0</p>
