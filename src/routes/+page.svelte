@@ -1,2 +1,2 @@
 <h1>typescript-sveltekit</h1>
-<p>1.0.0</p>
+<p>1.0.5</p>
