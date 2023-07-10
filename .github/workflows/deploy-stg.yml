@@ -50,4 +50,4 @@ jobs:
           -H "Authorization: token ${{ steps.generate_token.outputs.token }}" \
           -H "Accept: application/vnd.github.v3+json" \
           "https://api.github.com/repos/taroshun32/taroshun32-actions/dispatches" \
-          -d '{"event_type":"ecs-deploy","client_payload":{"REPOSITORY":"svelte-app","TAG":"${{ env.PACKAGE_VERSION }}"}'
+          -d '{"event_type":"ecs-deploy","client_payload":{"REPOSITORY":"svelte-app","TAG":"${{ env.PACKAGE_VERSION }}","FROM_CODE":"direct"}'
