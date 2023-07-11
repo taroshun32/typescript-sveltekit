@@ -35,7 +35,7 @@ jobs:
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
       - name: dispatch
-        uses: taroshun32/taroshun32-actions/.github/actions/dispatcher/dispatch-slack-confirm@master
+        uses: taroshun32/taroshun32-actions/.github/actions/dispatcher/dispatch-slack-confirm@main
         with:
           APP_ID:      ${{ secrets.APP_ID }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
