@@ -19,10 +19,10 @@ payload="$(printf "${template}" "${APP_ID}" "${iat}" "${exp}" | base64url)"
 signature="$(printf '%s' "${header}.${payload}" | sign | base64url)"
 jwt="${header}.${payload}.${signature}"
 
-installation_id="$(curl --location --silent --request GET \
-  --url "https://api.github.com/app/installations" \
-  --header "Accept: application/vnd.github.v3+json" \
-  --header "Authorization: Bearer ${jwt}" \
+installation_id="$(curl -X GET \
+  -H "Authorization: Bearer ${jwt}" \
+  -H "Accept: application/vnd.github.v3+json" \
+  "https://api.github.com/app/installations" \
   | jq -r '.[0] | .id'
 )"
 
