@@ -19,9 +19,9 @@ template='{"iss":"%s","iat":%s,"exp":%s}'
 payload="$(printf "${template}" "${APP_ID}" "${iat}" "${exp}" | base64url)"
 
 signature="$(printf '%s' "${header}.${payload}" | sign | base64url)"
-echo signature
+echo ${signature}
 jwt="${header}.${payload}.${signature}"
-echo jwt
+echo ${jwt}
 
 installation_id="$(curl --location --silent --request GET \
   --url "https://api.github.com/app/installations" \
