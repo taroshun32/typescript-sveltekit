@@ -5,7 +5,7 @@ base64url() {
 }
 
 sign() {
-  openssl dgst -binary -sha256 -hmac "${PRIVATE_KEY}"
+  openssl dgst -binary -sha256 -sign <(printf '%s' "${PRIVATE_KEY}")
 }
 
 echo "${PRIVATE_KEY}"
