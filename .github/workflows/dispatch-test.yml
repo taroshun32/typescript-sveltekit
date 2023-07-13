@@ -18,7 +18,7 @@ jobs:
           APP_ID:      ${{ secrets.APP_ID }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         run: |
-          sh ${{ github.action_path }}/generate-token.sh
+          sh generate-token.sh
 
       - name:  dispatch1
         shell: bash
