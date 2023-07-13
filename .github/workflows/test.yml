@@ -1,0 +1,53 @@
+name: "test"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Post confirm button 2
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          channel-id: ${{ env.CHANNEL }}
+          payload: |
+            {
+              "attachments": [
+                {
+                  "text": "Choose a game to play",
+                  "fallback": "If you could read this message, you'd be choosing something fun to do right now.",
+                  "color": "#3AA3E3",
+                  "attachment_type": "default",
+                  "callback_id": "game_selection",
+                  "actions": [
+                    {
+                      "name": "games_list",
+                      "text": "Pick a game...",
+                      "type": "select",
+                      "options": [
+                        {
+                          "text": "Hearts",
+                          "value": "hearts"
+                        },
+                        {
+                          "text": "Bridge",
+                          "value": "bridge"
+                        },
+                        {
+                          "text": "Checkers",
+                          "value": "checkers"
+                        }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
