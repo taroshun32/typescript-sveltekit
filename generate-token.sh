@@ -26,7 +26,8 @@ jwt="${header}.${payload}.${signature}"
 echo ${jwt}
 
 installation_id="$(curl --location --silent --request GET \
-  --url "https://api.github.com/app/installations" \
+--url "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/installation" \
+  --url "https://api.github.com/repos/taroshun32/taroshun32-actions/installation" \
   --header "Accept: application/vnd.github.v3+json" \
   --header "Authorization: Bearer ${jwt}" \
   | jq -r '.[0] | .id'
@@ -36,6 +37,6 @@ token="$(curl --location --silent --request POST \
   --url "https://api.github.com/app/installations/${installation_id}/access_tokens" \
   --header "Accept: application/vnd.github.v3+json" \
   --header "Authorization: Bearer ${jwt}" \
-  | jq -r '.token'
+  | jq -r '.id'
 )"
 echo "${token}"
