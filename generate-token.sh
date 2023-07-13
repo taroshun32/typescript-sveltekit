@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 
 base64url() {
   openssl enc -base64 -A | tr '+/' '-_' | tr -d '='
@@ -11,12 +11,14 @@ sign() {
 echo "${PRIVATE_KEY}"
 
 header="$(printf '{"alg":"RS256","typ":"JWT"}' | base64url)"
+echo header=${header}
 
 now="$(date '+%s')"
 iat="$((now - 60))"
 exp="$((now + (3 * 60)))"
 template='{"iss":"%s","iat":%s,"exp":%s}'
 payload="$(printf "${template}" "${APP_ID}" "${iat}" "${exp}" | base64url)"
+echo payload=${payload}
 
 signature="$(printf '%s' "${header}.${payload}" | sign | base64url)"
 echo ${signature}
