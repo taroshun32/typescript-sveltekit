@@ -20,7 +20,7 @@ jobs:
         run: |
           TOKEN=$(bash generate-token.sh)
           echo ${TOKEN}
-          echo 'ACCESS_TOKEN=${TOKEN}' >> $GITHUB_OUTPUT
+          echo "ACCESS_TOKEN=${TOKEN}" >> $GITHUB_OUTPUT
 
       - name:  dispatch1
         shell: bash
