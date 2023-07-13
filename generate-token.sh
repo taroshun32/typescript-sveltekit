@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 base64url() {
   openssl enc -base64 -A | tr '+/' '-_' | tr -d '='
