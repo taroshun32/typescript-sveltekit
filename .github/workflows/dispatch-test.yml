@@ -18,7 +18,7 @@ jobs:
           APP_ID:      ${{ secrets.APP_ID }}
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         run: |
-          echo 'ACCESS_TOKEN="$(./generate-token.sh)"' >> $GITHUB_OUTPUT
+          sh generate-token.sh
 
       - name:  dispatch1
         shell: bash
