@@ -17,7 +17,7 @@ jobs:
 
       - name: Check pr status
         run:  |
-          gh pr status --json isDraft
+          gh pr status
 
       - name: Set version
         run:  echo "PACKAGE_VERSION=`node -pe "require('./package.json')['version']"`" >> $GITHUB_ENV
