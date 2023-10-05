@@ -25,7 +25,7 @@ jobs:
 
   execute:
     needs:   check-pr-status
-    if:      ${{ needs.check-pr-status.outputs.IS_DRAFT }} == false
+    if:      ${{ needs.check-pr-status.outputs.IS_DRAFT }} == true
     runs-on: ubuntu-latest
 
     steps:
