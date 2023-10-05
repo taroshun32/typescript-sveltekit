@@ -21,7 +21,7 @@ jobs:
       - name: Check
         run: |
           gh pr checkout ${{ github.event.number }}
-          echo "::set-output name=IS_DRAFT::`gh pr status --json isDraft | jq -r '.currentBranch.isDraft'`"
+          echo "IS_DRAFT=`gh pr status --json isDraft | jq -r '.currentBranch.isDraft'`" >> $GITHUB_OUTPUT
 
   execute:
     needs:   check-pr-status
