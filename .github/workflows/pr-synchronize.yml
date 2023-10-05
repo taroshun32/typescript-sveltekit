@@ -1,0 +1,22 @@
+name: "Actions for pull request synchronize"
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set version
+        run:  echo "PACKAGE_VERSION=`node -pe "require('./package.json')['version']"`" >> $GITHUB_ENV
+
+      - name: Echo version
+        env:
+          PACKAGE_VERSION:  ${{ env.PACKAGE_VERSION }}
+        run: |
+          echo $IMAGE_TAG
