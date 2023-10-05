@@ -29,6 +29,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check
+        run:  echo ${{ needs.check-pr-status.outputs.IS_DRAFT }}
+
       - name: Checkout repo
         uses: actions/checkout@v3
 
