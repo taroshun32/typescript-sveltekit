@@ -5,7 +5,7 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
-  execute:
+  check-pr-status:
     runs-on: ubuntu-latest
 
     env:
@@ -16,9 +16,18 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Check pr status
-        run:  |
+        run: |
           gh pr checkout ${{ github.event.number }}
-          gh pr status --json isDraft
+          echo "IS_DRAFT=`gh pr status --json isDraft | jq -r '.currentBranch.isDraft'`" >> $GITHUB_ENV
+
+  execute:
+    needs:   check-pr-status
+    if:      ${{ env.IS_DRAFT }} == false
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
       - name: Set version
         run:  echo "PACKAGE_VERSION=`node -pe "require('./package.json')['version']"`" >> $GITHUB_ENV
