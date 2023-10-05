@@ -19,4 +19,4 @@ jobs:
         env:
           PACKAGE_VERSION:  ${{ env.PACKAGE_VERSION }}
         run: |
-          echo PACKAGE_VERSION
+          echo $PACKAGE_VERSION
