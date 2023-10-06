@@ -22,9 +22,9 @@ jobs:
         name: Check pr status
         run: |
           gh pr checkout ${{ github.event.number }}
-          IS_DRAFT=`(gh pr status --json isDraft | jq -r '.currentBranch.isDraft') == 'true'`
+          IS_DRAFT=`(gh pr status --json isDraft | jq -r '.currentBranch.isDraft') = 'true'`
           echo $IS_DRAFT
-          echo "IS_DRAFT=`(gh pr status --json isDraft | jq -r '.currentBranch.isDraft') == 'true'`" >> $GITHUB_OUTPUT
+          echo "IS_DRAFT=`(gh pr status --json isDraft | jq -r '.currentBranch.isDraft') = 'true'`" >> $GITHUB_OUTPUT
 
   execute:
     needs:   check-pr-status
