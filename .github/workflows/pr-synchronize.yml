@@ -5,10 +5,36 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
-  deploy:
+  check-pr-status:
+    runs-on: ubuntu-latest
+
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    outputs:
+        IS_DRAFT: ${{ steps.check-pr-status.outputs.IS_DRAFT }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - id:   check-pr-status
+        name: Check pr status
+        run: |
+          gh pr checkout ${{ github.event.number }}
+          IS_DRAFT=`(gh pr status --json isDraft | jq -r '.currentBranch.isDraft') = 'true'`
+          echo $IS_DRAFT
+          echo "IS_DRAFT=`(gh pr status --json isDraft | jq -r '.currentBranch.isDraft') = 'true'`" >> $GITHUB_OUTPUT
+
+  execute:
+    needs:   check-pr-status
+    if:      ${{ !needs.check-pr-status.outputs.IS_DRAFT }}
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check
+        run:  echo ${{ needs.check-pr-status.outputs.IS_DRAFT }}
+
       - name: Checkout repo
         uses: actions/checkout@v3
 
@@ -19,4 +45,4 @@ jobs:
         env:
           PACKAGE_VERSION:  ${{ env.PACKAGE_VERSION }}
         run: |
-          echo $IMAGE_TAG
+          echo $PACKAGE_VERSION
